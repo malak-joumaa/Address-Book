@@ -15,7 +15,7 @@ const phoneSchema = new mongoose.Schema({
   },
 });
 
-const userSchema = new mongoose.Schema({
+const contactsSchema = new mongoose.Schema({
   first_name: {
     type: String,
     required: true,
@@ -48,11 +48,15 @@ const userSchema = new mongoose.Schema({
       enum: ["Point"],
       required: true,
     },
-    coordinated: {
+    coordinates: {
       type: [Number],
       required: true,
     },
   },
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: "Users",
+  },
 });
 
-module.exports = mongoose.model("Users", userSchema);
+module.exports = mongoose.model("Contacts", contactsSchema);

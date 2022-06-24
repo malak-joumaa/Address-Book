@@ -24,6 +24,12 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  contacts: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Contacts",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Users", userSchema);
