@@ -1,4 +1,4 @@
-const { addContact, getContacts } = require("./contact");
+const { addContact, getById } = require("./contact");
 const User = require("../../model/Users");
 const Contact = require("../../model/Contacts");
 
@@ -39,10 +39,13 @@ async function get(req, res) {
   try {
     console.log(req.query);
 
-    const result = await getContacts();
-    console.log("result =>", result);
-
-    return res.send(result);
+    if (req.query.id) {
+      // ?id=k1231 -> query paramet
+      const id = req.query.id;
+      const result = await getById(id);
+      console.log("result of specific user =>", result);
+      return res.send(result);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -67,8 +70,32 @@ async function deleteContact(req, res) {
   }
 }
 
+async function updateContact(req, res) {
+  try {
+    console.log("update");
+    const contact = await Contact.findByIdAndUpdate(
+      { _id: req.query.id },
+      {
+        $set: {
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          email: req.body.email,
+          relationship_status: req.body.relationship_status,
+          phone_number: req.body.phone_number,
+          location: req.body.location,
+          user: req.body.user,
+        },
+      }
+    );
+    return res.send();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   add,
   get,
   deleteContact,
+  updateContact,
 };

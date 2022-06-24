@@ -24,11 +24,11 @@ async function addContact(body) {
   return await contact.save();
 }
 
-async function getContacts() {
-  return await Product.find().populate("user");
+async function getById(id) {
+  return await Contact.find({ user: id });
 }
 
 module.exports = {
   addContact,
-  getContacts,
+  getById,
 };
