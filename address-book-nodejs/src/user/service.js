@@ -1,5 +1,4 @@
-const { use } = require(".");
-const User = require("../model/Users");
+const User = require("../../model/Users");
 
 async function addUser(body, hashPassword) {
   const { name, email } = body;
@@ -18,8 +17,6 @@ async function getByEmail(email) {
     email,
   });
 }
-
-//
 
 module.exports = {
   addUser,

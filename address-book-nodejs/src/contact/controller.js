@@ -5,17 +5,13 @@ const Contact = require("../../model/Contacts");
 async function add(req, res) {
   try {
     console.log(req.body);
-
-    // validate the form
-    // 400
-    // res.status(400).send(error);
+    if (!req.body) return res.status(400).send("invalid credentials");
 
     const newContact = await addContact(req.body);
     console.log("newContact =>", newContact);
-    // 400
+    if (!newContact) return res.status(400).send("invalid credentials");
 
-    // use updateMany()
-    // to find all categories in this product and update them to include this product
+    // Updating user containing this contact
     const updateUser = await User.updateOne(
       {
         _id: newContact.user,
@@ -28,19 +24,19 @@ async function add(req, res) {
     );
     console.log("updateUser =>", updateUser);
 
-    return res.status(200).send(newContact); // 200
+    return res.status(200).send(newContact);
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
   }
 }
 
+//Get contacts by user id
 async function get(req, res) {
   try {
     console.log(req.query);
 
     if (req.query.id) {
-      // ?id=k1231 -> query paramet
       const id = req.query.id;
       const result = await getById(id);
       console.log("result of specific user =>", result);
@@ -51,13 +47,13 @@ async function get(req, res) {
   }
 }
 
+// Delete contact by contact id
 async function deleteContact(req, res) {
   try {
     const contact = await Contact.findOne({ _id: req.query.id });
-    // if !product return -> 404
+    if (!contact) return res.status(400).send("invalid credentials");
 
     const deleteContact = await contact.remove();
-    // deleteResult -> 400
 
     await User.updateOne(
       { _id: contact.user },
@@ -70,6 +66,7 @@ async function deleteContact(req, res) {
   }
 }
 
+// Update contact by contact id
 async function updateContact(req, res) {
   try {
     console.log("update");
