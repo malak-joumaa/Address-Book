@@ -1,5 +1,5 @@
 const { use } = require(".");
-const User = require("../model/User");
+const User = require("../model/Users");
 
 async function addUser(body, hashPassword) {
   const { name, email } = body;
