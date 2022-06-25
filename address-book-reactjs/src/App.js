@@ -4,12 +4,12 @@ import SignUp from "./Pages/Signup";
 
 function App() {
   const [email, setEmail] = useState("");
-  const [pass, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   console.log(email);
-  console.log(pass);
+  console.log(password);
   // Send data to database
   const signIn = async () => {
-    console.log(email, pass);
+    console.log(email, password);
     const res = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       headers: {
@@ -17,7 +17,7 @@ function App() {
       },
       body: JSON.stringify({
         email: email,
-        password: pass,
+        password: password,
       }),
     });
     const data = await res.json();
@@ -54,7 +54,7 @@ function App() {
                         id="password"
                         className="txtbox"
                         name="text"
-                        value={pass}
+                        value={password}
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <br />
