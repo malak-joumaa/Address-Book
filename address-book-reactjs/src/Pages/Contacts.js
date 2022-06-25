@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../Components/Button";
+import SearchBox from "../Components/SearchBox";
 
 const Contacts = () => {
   const [contact, setContacts] = useState([]);
@@ -27,6 +29,8 @@ const Contacts = () => {
       <h1>{localStorage.getItem("username")}'s Contacts</h1>
       <div>
         <div id="all-contacts">
+          <SearchBox />
+          <Button btn_name="Add Contact" />
           <table>
             <tr>
               <th>First Name</th>
@@ -40,7 +44,7 @@ const Contacts = () => {
               <th>Location</th>
             </tr>
 
-            {contact.map((singleSurvey, index) => (
+            {contact.map((singleContact, index) => (
               <tr key={index}>
                 <td>{contact[index].first_name}</td>
                 <td>{contact[index].last_name}</td>
