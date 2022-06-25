@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import SignUp from "./Pages/Signup";
+import Contacts from "./Pages/Contacts";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -23,8 +24,6 @@ function App() {
     const data = await res.json();
     console.log(data);
     window.localStorage.setItem("token", data.token);
-    window.localStorage.setItem("user_id", data.user_id);
-    window.localStorage.setItem("token", data.user_name);
   };
   return (
     <BrowserRouter>
@@ -60,7 +59,7 @@ function App() {
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <br />
-                      <Link to="/sign-up">
+                      <Link to="/Contact">
                         <button
                           className="btn"
                           onClick={() => {
@@ -83,6 +82,7 @@ function App() {
           }
         ></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
+        <Route path="/contacts" element={<Contacts />}></Route>
       </Routes>
     </BrowserRouter>
   );
