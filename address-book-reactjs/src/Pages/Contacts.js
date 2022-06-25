@@ -30,7 +30,7 @@ const Contacts = () => {
       <div>
         <div id="all-contacts">
           <SearchBox />
-          <Button btn_name="Add Contact" />
+          <Button btn_name="Add Contact" page="add-contact" />
           <table>
             <tr>
               <th>First Name</th>

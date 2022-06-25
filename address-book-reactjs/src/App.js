@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import SignUp from "./Pages/Signup";
 import Contacts from "./Pages/Contacts";
 import jwt_decode from "jwt-decode";
+import AddContact from "./Pages/AddContact";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -89,6 +90,7 @@ function App() {
         ></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/contacts" element={<Contacts />}></Route>
+        <Route path="/add-contact" element={<AddContact />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -1,9 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Button = ({ btn_name }) => {
+const Button = ({ btn_name, page }) => {
+  var navigate = useNavigate();
+
   return (
     <>
-      <button>{btn_name}</button>
+      <button
+        onClick={() => {
+          navigate("/" + page);
+        }}
+      >
+        {btn_name}
+      </button>
     </>
   );
 };
