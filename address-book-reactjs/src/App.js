@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import SignUp from "./Pages/Signup";
 import Contacts from "./Pages/Contacts";
+import jwt_decode from "jwt-decode";
 
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   console.log(email);
   console.log(password);
-  // Send data to database
+
   const signIn = async () => {
     console.log(email, password);
     const res = await fetch("http://localhost:5000/api/auth/login", {
@@ -23,7 +24,12 @@ function App() {
     });
     const data = await res.json();
     console.log(data);
-    window.localStorage.setItem("token", data.token);
+    var token = data.token;
+    window.localStorage.setItem("token", token);
+    var decoded = jwt_decode(token);
+    console.log(decoded);
+    window.localStorage.setItem("username", decoded.name);
+    window.localStorage.setItem("user_id", decoded._id);
   };
   return (
     <BrowserRouter>
@@ -59,7 +65,7 @@ function App() {
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <br />
-                      <Link to="/Contact">
+                      <Link to="/contacts">
                         <button
                           className="btn"
                           onClick={() => {
