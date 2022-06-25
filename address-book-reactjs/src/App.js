@@ -23,6 +23,8 @@ function App() {
     const data = await res.json();
     console.log(data);
     window.localStorage.setItem("token", data.token);
+    window.localStorage.setItem("user_id", data.user_id);
+    window.localStorage.setItem("token", data.user_name);
   };
   return (
     <BrowserRouter>
@@ -58,17 +60,19 @@ function App() {
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <br />
-                      <button
-                        className="btn"
-                        onClick={() => {
-                          signIn();
-                        }}
-                      >
-                        Sign in
-                      </button>
+                      <Link to="/sign-up">
+                        <button
+                          className="btn"
+                          onClick={() => {
+                            signIn();
+                          }}
+                        >
+                          Sign in
+                        </button>
+                      </Link>
                       <br />
                       <span>
-                        Don't have an account?{" "}
+                        Don't have an account?
                         <Link to="/sign-up">Sign Up</Link>
                       </span>
                     </div>
