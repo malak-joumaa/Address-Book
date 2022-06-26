@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/Button";
 import SearchBox from "../Components/SearchBox";
+import AddContact from "./AddContact";
 
 const Contacts = () => {
   const [contact, setContacts] = useState([]);
@@ -36,6 +37,7 @@ const Contacts = () => {
       }
     );
   };
+
   return (
     <div>
       <h1>{localStorage.getItem("username")}'s Contacts</h1>

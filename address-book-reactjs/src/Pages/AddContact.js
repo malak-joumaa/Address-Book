@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
-import Maps from "../Components/Maps";
+import Title from "../Components/ContactForm";
+import ContactFrom from "../Components/ContactForm";
 
 const AddContact = () => {
   const [fname, setFname] = useState("");
@@ -14,7 +14,6 @@ const AddContact = () => {
     33.893791, 35.501778,
   ]);
   const [locationName, setLocationName] = useState("");
-  const initialPosition = [33.893791, 35.501778];
   console.log(fname);
   console.log(lname);
   console.log(email);
@@ -68,71 +67,21 @@ const AddContact = () => {
     <div>
       <h1>Add Contact</h1>
       <form>
-        <label>First Name</label>
-        <br />
-        <input
-          type="text"
-          id="lname"
-          className="txtbox"
-          value={fname}
-          onChange={(e) => setFname(e.target.value)}
-        />
-        <br />
-        <label>Last Name</label>
-        <br />
-        <input
-          type="text"
-          id="fname"
-          className="txtbox"
-          value={lname}
-          onChange={(e) => setLname(e.target.value)}
-        />
-        <br />
-        <label>Email</label>
-        <br />
-        <input
-          type="email"
-          id="email"
-          className="txtbox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <label>Relationship Status</label>
-        <br />
-        <input
-          type="radio"
-          name="status"
-          value="Single"
-          onChange={(e) => setStatus(e.target.value)}
-        />
-        Single
-        <input
-          type="radio"
-          name="status"
-          value="Married"
-          onChange={(e) => setStatus(e.target.value)}
-        />
-        Married
-        <br />
-        <label>Phone number</label>
-        <br />
-        <PhoneInput
-          placeholder="Enter phone number"
-          value={number}
-          onChange={setNumber}
-        />
-        <br />
-        <label>Location</label>
-        <br />
-        <span>{locationName}</span>
-        {/* Including Map */}
-        <Maps
+        <ContactFrom
+          fname={fname}
+          setFname={setFname}
+          lname={lname}
+          setLname={setLname}
+          email={email}
+          setEmail={setEmail}
+          setStatus={setStatus}
+          number={number}
+          setNumber={setNumber}
           selectedPosition={selectedPosition}
           setSelectedPosition={setSelectedPosition}
-          initialPosition={initialPosition}
+          locationName={locationName}
+          setLocationName={selectedPosition}
           getName={getName}
-          setLocationName={setLocationName}
         />
         <button
           onClick={() => {
