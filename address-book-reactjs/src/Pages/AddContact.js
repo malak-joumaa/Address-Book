@@ -8,7 +8,8 @@ const AddContact = () => {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
-  const [value, setValue] = useState();
+  const [number, setNumber] = useState();
+  const [status, setStatus] = useState("");
   const [selectedPosition, setSelectedPosition] = useState([
     33.893791, 35.501778,
   ]);
@@ -17,12 +18,14 @@ const AddContact = () => {
   console.log(fname);
   console.log(lname);
   console.log(email);
-  console.log(value);
+  console.log(status);
+  console.log(number);
 
   useEffect(() => {
     getName();
   }, []);
 
+  //Get the name of the selected location
   const getName = async (e) => {
     try {
       const res = await fetch(
@@ -40,6 +43,27 @@ const AddContact = () => {
     }
   };
   console.log(locationName);
+
+  const addContact = async () => {
+    const res = await fetch("http://localhost:5000/api/contact/", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        first_name: fname,
+        last_name: lname,
+        email: email,
+        relationship_status: status,
+        phone_number: number,
+        location: locationName,
+        user: localStorage.getItem("id"),
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
+  };
+
   return (
     <div>
       <h1>Add Contact</h1>
@@ -76,22 +100,33 @@ const AddContact = () => {
         <br />
         <label>Relationship Status</label>
         <br />
-        <input type="radio" name="status" />
+        <input
+          type="radio"
+          name="status"
+          value="Single"
+          onChange={(e) => setStatus(e.target.value)}
+        />
         Single
-        <input type="radio" name="status" />
+        <input
+          type="radio"
+          name="status"
+          value="Married"
+          onChange={(e) => setStatus(e.target.value)}
+        />
         Married
         <br />
         <label>Phone number</label>
         <br />
         <PhoneInput
           placeholder="Enter phone number"
-          value={value}
-          onChange={setValue}
+          value={number}
+          onChange={setNumber}
         />
         <br />
         <label>Location</label>
         <br />
         <span>{locationName}</span>
+        {/* Including Map */}
         <Maps
           selectedPosition={selectedPosition}
           setSelectedPosition={setSelectedPosition}
@@ -99,6 +134,13 @@ const AddContact = () => {
           getName={getName}
           setLocationName={setLocationName}
         />
+        <button
+          onClick={() => {
+            addContact();
+          }}
+        >
+          AddContact
+        </button>
       </form>
     </div>
   );

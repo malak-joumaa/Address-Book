@@ -49,9 +49,9 @@ const Contacts = () => {
                 <td>{contact[index].first_name}</td>
                 <td>{contact[index].last_name}</td>
                 <td>{contact[index].email}</td>
-                {/* <td>{contact[index].phone_number.number}</td> */}
+                <td>{contact[index].phone_number}</td>
                 <td>{contact[index].relationship_status}</td>
-                <td>{contact[index].location.coordinates}</td>
+                <td>{contact[index].location}</td>
               </tr>
             ))}
           </table>
