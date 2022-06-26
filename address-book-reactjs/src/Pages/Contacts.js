@@ -24,6 +24,18 @@ const Contacts = () => {
   };
   console.log(contact);
 
+  const deleteContact = async (contact_id) => {
+    console.log(contact_id);
+    const res = await fetch(
+      "http://localhost:5000/api/contact/?id=" + contact_id,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+  };
   return (
     <div>
       <h1>{localStorage.getItem("username")}'s Contacts</h1>
@@ -52,6 +64,17 @@ const Contacts = () => {
                 <td>{contact[index].phone_number}</td>
                 <td>{contact[index].relationship_status}</td>
                 <td>{contact[index].location}</td>
+                <td>
+                  <i
+                    className="fa-solid fa-trash"
+                    onClick={() => {
+                      deleteContact(contact[index]._id);
+                    }}
+                  ></i>
+                </td>
+                <td>
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </td>
               </tr>
             ))}
           </table>
