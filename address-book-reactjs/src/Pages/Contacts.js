@@ -1,14 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/Button";
+import ContactFrom from "../Components/ContactForm";
 import SearchBox from "../Components/SearchBox";
 import AddContact from "./AddContact";
 
 const Contacts = () => {
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState();
+  const [status, setStatus] = useState("single");
+  const [selectedPosition, setSelectedPosition] = useState([
+    33.893791, 35.501778,
+  ]);
+  console.log(fname);
+  const [locationName, setLocationName] = useState("");
+
+  //Get the name of the selected location
+  const getName = async (e) => {
+    try {
+      const res = await fetch(
+        "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" +
+          selectedPosition[0] +
+          "&longitude=" +
+          selectedPosition[1] +
+          "&localityLanguage=en"
+      );
+      const data = await res.json();
+      console.log(data);
+      setLocationName("" + data.locality + ", " + data.countryName);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const [displayForm, setDisplayForm] = useState(false);
   const [contact, setContacts] = useState([]);
+  const [selectedId, setSelectedId] = useState(1);
 
   useEffect(() => {
     fetchContacts();
+    getName();
   }, []);
 
   const fetchContacts = async () => {
@@ -34,6 +66,27 @@ const Contacts = () => {
         headers: {
           "Content-type": "application/json",
         },
+      }
+    );
+  };
+
+  const updateContact = async (contact_id) => {
+    const res = await fetch(
+      "http://localhost:5000/api/contact/?id=" + contact_id,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: fname,
+          last_name: lname,
+          email: email,
+          relationship_status: status,
+          phone_number: number,
+          location: locationName,
+          user: localStorage.getItem("id"),
+        }),
       }
     );
   };
@@ -75,12 +128,52 @@ const Contacts = () => {
                   ></i>
                 </td>
                 <td>
-                  <i className="fa-solid fa-pen-to-square"></i>
+                  <i
+                    className="fa-solid fa-pen-to-square"
+                    onClick={() => {
+                      setDisplayForm(true);
+                      setFname(contact[index].first_name);
+                      setLname(contact[index].last_name);
+                      setEmail(contact[index].email);
+                      setStatus(contact[index].relationship_status);
+                      setNumber(contact[index].phone_number);
+                      setLocationName(contact[index].location);
+                      setSelectedId(contact[index]._id);
+                    }}
+                  ></i>
                 </td>
               </tr>
             ))}
           </table>
         </div>
+        {displayForm ? (
+          <ContactFrom
+            fname={fname}
+            setFname={setFname}
+            lname={lname}
+            setLname={setLname}
+            email={email}
+            setEmail={setEmail}
+            setStatus={setStatus}
+            number={number}
+            setNumber={setNumber}
+            selectedPosition={selectedPosition}
+            setSelectedPosition={setSelectedPosition}
+            locationName={locationName}
+            setLocationName={selectedPosition}
+            getName={getName}
+          />
+        ) : (
+          <></>
+        )}
+        <button
+          onClick={() => {
+            console.log(selectedId);
+            updateContact(selectedId);
+          }}
+        >
+          Update
+        </button>
       </div>
     </div>
   );
