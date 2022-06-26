@@ -6,6 +6,7 @@ import SearchBox from "../Components/SearchBox";
 import AddContact from "./AddContact";
 
 const Contacts = () => {
+  const navigate = useNavigate();
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
@@ -46,7 +47,8 @@ const Contacts = () => {
   const fetchContacts = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/contact?id=" + localStorage.getItem("id")
+        "http://localhost:5000/api/contact?id=" +
+          localStorage.getItem("user_id")
       );
       const data = await res.json();
       console.log(data);
@@ -85,7 +87,7 @@ const Contacts = () => {
           relationship_status: status,
           phone_number: number,
           location: locationName,
-          user: localStorage.getItem("id"),
+          user: localStorage.getItem("user_id"),
         }),
       }
     );
@@ -94,6 +96,15 @@ const Contacts = () => {
   return (
     <div>
       <h1>{localStorage.getItem("username")}'s Contacts</h1>
+      <i
+        class="fa-solid fa-arrow-right-from-bracket"
+        onClick={() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.removeItem("id");
+          navigate("/");
+        }}
+      ></i>
       <div>
         <div id="all-contacts">
           <SearchBox />
@@ -170,6 +181,8 @@ const Contacts = () => {
           onClick={() => {
             console.log(selectedId);
             updateContact(selectedId);
+            setDisplayForm(false);
+            window.location.reload();
           }}
         >
           Update

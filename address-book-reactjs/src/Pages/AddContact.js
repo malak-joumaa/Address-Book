@@ -56,7 +56,7 @@ const AddContact = () => {
         relationship_status: status,
         phone_number: number,
         location: locationName,
-        user: localStorage.getItem("id"),
+        user: localStorage.getItem("user_id"),
       }),
     });
     const data = await res.json();
