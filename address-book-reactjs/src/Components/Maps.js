@@ -8,11 +8,13 @@ import {
 } from "react-leaflet";
 import GeoLocation from "./GeoLocation";
 
-const Maps = ({ selectedPosition, setSelectedPosition }) => {
+const Maps = ({
+  selectedPosition,
+  setSelectedPosition,
+  setLocationName,
+  getName,
+}) => {
   const location = GeoLocation();
-  const [initialPosition, setInitialPosition] = useState([
-    33.893791, 35.501778,
-  ]);
 
   //Function to display marker on click
   const Markers = () => {
@@ -20,6 +22,7 @@ const Maps = ({ selectedPosition, setSelectedPosition }) => {
       click(e) {
         setSelectedPosition([e.latlng.lat, e.latlng.lng]);
         console.log(selectedPosition);
+        getName();
       },
     });
     return selectedPosition ? (
@@ -28,13 +31,7 @@ const Maps = ({ selectedPosition, setSelectedPosition }) => {
         position={selectedPosition}
         interactive={false}
       />
-    ) : (
-      <Marker
-        key={initialPosition[0]}
-        position={initialPosition}
-        interactive={false}
-      />
-    );
+    ) : null;
   };
 
   //Function to get current location
@@ -57,7 +54,7 @@ const Maps = ({ selectedPosition, setSelectedPosition }) => {
   return (
     <>
       <MapContainer
-        center={selectedPosition || initialPosition}
+        center={selectedPosition}
         zoom="12"
         onClick={console.log("clicked")}
       >

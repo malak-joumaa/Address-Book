@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
@@ -9,13 +9,37 @@ const AddContact = () => {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [value, setValue] = useState();
-  const [selectedPosition, setSelectedPosition] = useState(null);
+  const [selectedPosition, setSelectedPosition] = useState([
+    33.893791, 35.501778,
+  ]);
+  const [locationName, setLocationName] = useState("");
   const initialPosition = [33.893791, 35.501778];
   console.log(fname);
   console.log(lname);
   console.log(email);
   console.log(value);
 
+  useEffect(() => {
+    getName();
+  }, []);
+
+  const getName = async (e) => {
+    try {
+      const res = await fetch(
+        "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" +
+          selectedPosition[0] +
+          "&longitude=" +
+          selectedPosition[1] +
+          "&localityLanguage=en"
+      );
+      const data = await res.json();
+      console.log(data);
+      setLocationName("" + data.locality + ", " + data.countryName);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  console.log(locationName);
   return (
     <div>
       <h1>Add Contact</h1>
@@ -66,10 +90,14 @@ const AddContact = () => {
         />
         <br />
         <label>Location</label>
+        <br />
+        <span>{locationName}</span>
         <Maps
           selectedPosition={selectedPosition}
           setSelectedPosition={setSelectedPosition}
           initialPosition={initialPosition}
+          getName={getName}
+          setLocationName={setLocationName}
         />
       </form>
     </div>
