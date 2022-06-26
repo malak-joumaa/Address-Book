@@ -1,4 +1,3 @@
-import React, { useState, useEffect, useDebugValue } from "react";
 import {
   MapContainer,
   Marker,
@@ -8,12 +7,7 @@ import {
 } from "react-leaflet";
 import GeoLocation from "./GeoLocation";
 
-const Maps = ({
-  selectedPosition,
-  setSelectedPosition,
-  setLocationName,
-  getName,
-}) => {
+const Maps = ({ selectedPosition, setSelectedPosition, getName }) => {
   const location = GeoLocation();
 
   //Function to display marker on click

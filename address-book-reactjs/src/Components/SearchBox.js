@@ -2,7 +2,7 @@ import React from "react";
 const SearchBox = () => {
   return (
     <>
-      <label>Search</label>
+      <label>Search:</label>
       <input type="text" />
     </>
   );

@@ -40,7 +40,6 @@ code {
   color: #d5af8a;
   /* color:#c3976c; */
   text-align: center;
-  
 }
 
 .lbl{
@@ -53,7 +52,7 @@ code {
   background-color: transparent;
   font-size: 1.2em;
   margin: 30px 0;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 .btn{
@@ -82,3 +81,66 @@ a:link, a:visited{
   color:#d5af8a;
 }
 
+/* Contacts */
+
+.contact-title{
+  margin-top: 50px;
+}
+
+.contact-form{
+  margin: 0 auto;
+  width: 1200px;
+  margin-top: 675px;
+  transform: rotate(10deg);
+  padding-right: 40px;
+}
+
+.contact-form span{
+  display: block;
+}
+
+.logout{
+  float: right;
+  font-size: 2.5em;
+  color: #d5af8a;
+  position: relative;
+  top: -45px;
+}
+
+.search-add{
+  margin: 100px 20px 40px;
+}
+
+.contact-form button{
+  width: 120px;
+  height: 40px;
+  font-size: 1em;
+  float: right;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.search-add input{
+  width: 300px;
+  height: 35px;
+  margin-left: 10px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.search-add label{
+  font-size: 1.3em;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+table{
+  margin-bottom: 40px;
+  font-size: 1.2em;
+  letter-spacing: 0.5px;
+}

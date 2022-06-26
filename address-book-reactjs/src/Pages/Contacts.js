@@ -109,8 +109,10 @@ const Contacts = () => {
         ></i>
         <div>
           <div id="all-contacts">
-            <SearchBox />
-            <Button btn_name="Add Contact" page="add-contact" />
+            <div className="search-add">
+              <SearchBox />
+              <Button btn_name="Add Contact" page="add-contact" />
+            </div>
             <table>
               <tr>
                 <th>First Name</th>
@@ -122,6 +124,8 @@ const Contacts = () => {
                   <br /> Status
                 </th>
                 <th>Location</th>
+                <th></th>
+                <th></th>
               </tr>
 
               {contact.map((singleContact, index) => (
@@ -179,16 +183,21 @@ const Contacts = () => {
           ) : (
             <></>
           )}
-          <button
-            onClick={() => {
-              console.log(selectedId);
-              updateContact(selectedId);
-              setDisplayForm(false);
-              window.location.reload();
-            }}
-          >
-            Update
-          </button>
+          {displayForm ? (
+            <button
+              className="btn"
+              onClick={() => {
+                console.log(selectedId);
+                updateContact(selectedId);
+                setDisplayForm(false);
+                window.location.reload();
+              }}
+            >
+              Update
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
