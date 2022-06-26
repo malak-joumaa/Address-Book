@@ -125,11 +125,11 @@ const Contacts = () => {
           {localStorage.getItem("username")}'s Contacts
         </span>
         <i
-          class="fa-solid fa-arrow-right-from-bracket logout"
+          className="fa-solid fa-arrow-right-from-bracket logout"
           onClick={() => {
             localStorage.removeItem("token");
             localStorage.removeItem("username");
-            localStorage.removeItem("id");
+            localStorage.removeItem("user_id");
             navigate("/");
           }}
         ></i>

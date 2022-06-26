@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "react-phone-number-input/style.css";
+import { useNavigate } from "react-router-dom";
 import ContactFrom from "../Components/ContactForm";
 
 const AddContact = () => {
@@ -12,6 +13,9 @@ const AddContact = () => {
     33.893791, 35.501778,
   ]);
   const [locationName, setLocationName] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getName();
@@ -37,27 +41,40 @@ const AddContact = () => {
   console.log(locationName);
 
   const addContact = async () => {
-    const res = await fetch("http://localhost:5000/api/contact/", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        first_name: fname,
-        last_name: lname,
-        email: email,
-        relationship_status: status,
-        phone_number: number,
-        location: locationName,
-        user: localStorage.getItem("user_id"),
-      }),
-    });
-    const data = await res.json();
-    console.log(data);
+    try {
+      const res = await fetch("http://localhost:5000/api/contact/", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: fname,
+          last_name: lname,
+          email: email,
+          relationship_status: status,
+          phone_number: number,
+          location: locationName,
+          user: localStorage.getItem("user_id"),
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      setSuccess(true);
+      setClicked(true);
+    } catch (err) {
+      console.log(err);
+      setSuccess(false);
+    }
   };
 
   return (
     <div id="add-contact">
+      <i
+        className="fa-solid fa-arrow-left back"
+        onClick={() => {
+          navigate("/contacts");
+        }}
+      ></i>
       <h1>Add Contact</h1>
       <form>
         <ContactFrom
@@ -76,10 +93,24 @@ const AddContact = () => {
           setLocationName={selectedPosition}
           getName={getName}
         />
+        {clicked ? (
+          success ? (
+            <p className="green">Contact Added!</p>
+          ) : (
+            <p className="red">Couldn't add user</p>
+          )
+        ) : (
+          <></>
+        )}
         <button
           className="btn"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             addContact();
+            setTimeout(
+              () => window.open("http://localhost:3000/contacts"),
+              2000
+            );
           }}
         >
           AddContact
