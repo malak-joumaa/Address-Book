@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import Maps from "../Components/Maps";
 
 const AddContact = () => {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [value, setValue] = useState();
+  const [selectedPosition, setSelectedPosition] = useState(null);
+  const initialPosition = [33.893791, 35.501778];
   console.log(fname);
   console.log(lname);
   console.log(email);
@@ -63,6 +66,11 @@ const AddContact = () => {
         />
         <br />
         <label>Location</label>
+        <Maps
+          selectedPosition={selectedPosition}
+          setSelectedPosition={setSelectedPosition}
+          initialPosition={initialPosition}
+        />
       </form>
     </div>
   );
