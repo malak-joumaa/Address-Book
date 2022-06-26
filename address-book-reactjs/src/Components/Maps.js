@@ -55,6 +55,7 @@ const Maps = ({ selectedPosition, setSelectedPosition, getName }) => {
         <Markers />
       </MapContainer>
       <button
+        className="locate-me-btn btn"
         onClick={(e) => {
           e.preventDefault();
           showMyLocation();

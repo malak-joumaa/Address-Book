@@ -7,7 +7,7 @@ const Button = ({ btn_name, page }) => {
   return (
     <>
       <button
-        className="btn"
+        className="btn add-contact-btn"
         onClick={() => {
           navigate("/" + page);
         }}

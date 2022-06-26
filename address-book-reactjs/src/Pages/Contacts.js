@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/Button";
 import ContactFrom from "../Components/ContactForm";
 import SearchBox from "../Components/SearchBox";
+import abook from "../assets/abook.png";
 
 const Contacts = () => {
   const navigate = useNavigate();
@@ -11,11 +12,14 @@ const Contacts = () => {
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState();
   const [status, setStatus] = useState("single");
+  const [displayForm, setDisplayForm] = useState(false);
+  const [contact, setContacts] = useState([]);
+  const [selectedId, setSelectedId] = useState(1);
+  const [filteredData, setFilteredData] = useState(contact);
+  const [locationName, setLocationName] = useState("");
   const [selectedPosition, setSelectedPosition] = useState([
     33.893791, 35.501778,
   ]);
-  console.log(fname);
-  const [locationName, setLocationName] = useState("");
 
   //Get the name of the selected location
   const getName = async (e) => {
@@ -34,10 +38,6 @@ const Contacts = () => {
       console.log(err);
     }
   };
-  const [displayForm, setDisplayForm] = useState(false);
-  const [contact, setContacts] = useState([]);
-  const [selectedId, setSelectedId] = useState(1);
-  const [filteredData, setFilteredData] = useState(contact);
 
   useEffect(() => {
     fetchContacts();
@@ -121,7 +121,7 @@ const Contacts = () => {
   return (
     <div className="container">
       <div className="contact-form">
-        <span className="title">
+        <span className="title contact-span">
           {localStorage.getItem("username")}'s Contacts
         </span>
         <i
@@ -134,6 +134,7 @@ const Contacts = () => {
           }}
         ></i>
         <div>
+          <img src={abook} id="book-img" />
           <div id="all-contacts">
             <div className="search-add">
               <SearchBox handleSearch={handleSearch} />
@@ -191,6 +192,7 @@ const Contacts = () => {
           </div>
           {displayForm ? (
             <ContactFrom
+              title="Update Contact"
               fname={fname}
               setFname={setFname}
               lname={lname}
@@ -211,7 +213,7 @@ const Contacts = () => {
           )}
           {displayForm ? (
             <button
-              className="btn"
+              className="btn update-btn"
               onClick={() => {
                 console.log(selectedId);
                 updateContact(selectedId);

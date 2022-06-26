@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import "react-phone-number-input/style.css";
-import Title from "../Components/ContactForm";
 import ContactFrom from "../Components/ContactForm";
 
 const AddContact = () => {
@@ -14,11 +12,6 @@ const AddContact = () => {
     33.893791, 35.501778,
   ]);
   const [locationName, setLocationName] = useState("");
-  console.log(fname);
-  console.log(lname);
-  console.log(email);
-  console.log(status);
-  console.log(number);
 
   useEffect(() => {
     getName();
@@ -64,7 +57,7 @@ const AddContact = () => {
   };
 
   return (
-    <div>
+    <div id="add-contact">
       <h1>Add Contact</h1>
       <form>
         <ContactFrom
@@ -84,6 +77,7 @@ const AddContact = () => {
           getName={getName}
         />
         <button
+          className="btn"
           onClick={() => {
             addContact();
           }}
