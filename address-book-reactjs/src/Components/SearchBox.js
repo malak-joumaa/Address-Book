@@ -1,9 +1,9 @@
 import React from "react";
-const SearchBox = () => {
+const SearchBox = ({ handleSearch }) => {
   return (
     <>
       <label>Search:</label>
-      <input type="text" />
+      <input type="text" onChange={(event) => handleSearch(event)} />
     </>
   );
 };

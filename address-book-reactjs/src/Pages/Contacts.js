@@ -37,6 +37,7 @@ const Contacts = () => {
   const [displayForm, setDisplayForm] = useState(false);
   const [contact, setContacts] = useState([]);
   const [selectedId, setSelectedId] = useState(1);
+  const [filteredData, setFilteredData] = useState(contact);
 
   useEffect(() => {
     fetchContacts();
@@ -52,6 +53,7 @@ const Contacts = () => {
       const data = await res.json();
       console.log(data);
       setContacts(data);
+      setFilteredData(data);
     } catch (err) {
       console.log(err);
     }
@@ -92,6 +94,30 @@ const Contacts = () => {
     );
   };
 
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    console.log(value);
+    console.log(event);
+    let result = [];
+    result = filteredData.filter((contact) => {
+      console.log(contact);
+      console.log("heree");
+      console.log(filteredData);
+
+      console.log(contact.first_name.search(value));
+      return (
+        contact.first_name.search(value) != -1 ||
+        contact.last_name.search(value) != -1 ||
+        contact.phone_number.search(value) != -1 ||
+        contact.email.search(value) != -1 ||
+        contact.relationship_status.search(value) != -1 ||
+        contact.location.search(value) != -1
+      );
+    });
+    console.log(result);
+    setContacts(result);
+  };
+
   return (
     <div className="container">
       <div className="contact-form">
@@ -110,7 +136,7 @@ const Contacts = () => {
         <div>
           <div id="all-contacts">
             <div className="search-add">
-              <SearchBox />
+              <SearchBox handleSearch={handleSearch} />
               <Button btn_name="Add Contact" page="add-contact" />
             </div>
             <table>
