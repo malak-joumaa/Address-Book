@@ -1,20 +1,5 @@
 const mongoose = require("mongoose");
 
-const phoneSchema = new mongoose.Schema({
-  number: {
-    type: String,
-    required: true,
-    min: 6,
-    max: 255,
-  },
-  country_code: {
-    type: String,
-    required: true,
-    min: 1,
-    max: 255,
-  },
-});
-
 const contactsSchema = new mongoose.Schema({
   first_name: {
     type: String,
@@ -38,19 +23,19 @@ const contactsSchema = new mongoose.Schema({
     type: String,
     required: true,
     min: 6,
-    max: 1024,
+    max: 255,
   },
-  phone_number: phoneSchema,
+  phone_number: {
+    type: String,
+    required: true,
+    min: 6,
+    max: 255,
+  },
   location: {
-    type: {
-      type: String,
-      enum: ["Point"],
-      required: true,
-    },
-    coordinates: {
-      type: [Number],
-      required: true,
-    },
+    type: String,
+    required: true,
+    min: 6,
+    max: 255,
   },
   user: {
     type: mongoose.Types.ObjectId,
