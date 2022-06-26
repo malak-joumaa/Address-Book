@@ -77,8 +77,8 @@ function App() {
                         </button>
                       </Link>
                       <br />
-                      <span>
-                        Don't have an account?
+                      <span className="account">Don't have an account? </span>
+                      <span className="sign-link">
                         <Link to="/sign-up">Sign Up</Link>
                       </span>
                     </div>
