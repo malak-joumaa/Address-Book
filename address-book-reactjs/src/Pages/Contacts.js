@@ -153,57 +153,59 @@ const Contacts = () => {
               <SearchBox handleSearch={handleSearch} />
               <Button btn_name="Add Contact" page="add-contact" />
             </div>
-            <table>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone number</th>
-                <th>
-                  Relationship
-                  <br /> Status
-                </th>
-                <th>Location</th>
-                <th></th>
-                <th></th>
-              </tr>
-
-              {contact.map((singleContact, index) => (
-                <tr key={index}>
-                  <td>{contact[index].first_name}</td>
-                  <td>{contact[index].last_name}</td>
-                  <td>{contact[index].email}</td>
-                  <td>{contact[index].phone_number}</td>
-                  <td>{contact[index].relationship_status}</td>
-                  <td>{contact[index].location}</td>
-                  <td>
-                    {/* Delete Contact */}
-                    <i
-                      className="fa-solid fa-trash"
-                      onClick={() => {
-                        deleteContact(contact[index]._id);
-                      }}
-                    ></i>
-                  </td>
-                  <td>
-                    {/* Update Contact */}
-                    <i
-                      className="fa-solid fa-pen-to-square"
-                      onClick={() => {
-                        setDisplayForm(true);
-                        setFname(contact[index].first_name);
-                        setLname(contact[index].last_name);
-                        setEmail(contact[index].email);
-                        setStatus(contact[index].relationship_status);
-                        setNumber(contact[index].phone_number);
-                        setLocationName(contact[index].location);
-                        setSelectedId(contact[index]._id);
-                      }}
-                    ></i>
-                  </td>
+            <div id="tbl">
+              <table>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Phone number</th>
+                  <th>
+                    Relationship
+                    <br /> Status
+                  </th>
+                  <th>Location</th>
+                  <th></th>
+                  <th></th>
                 </tr>
-              ))}
-            </table>
+
+                {contact.map((singleContact, index) => (
+                  <tr key={index}>
+                    <td>{contact[index].first_name}</td>
+                    <td>{contact[index].last_name}</td>
+                    <td>{contact[index].email}</td>
+                    <td>{contact[index].phone_number}</td>
+                    <td>{contact[index].relationship_status}</td>
+                    <td>{contact[index].location}</td>
+                    <td>
+                      {/* Delete Contact */}
+                      <i
+                        className="fa-solid fa-trash"
+                        onClick={() => {
+                          deleteContact(contact[index]._id);
+                        }}
+                      ></i>
+                    </td>
+                    <td>
+                      {/* Update Contact */}
+                      <i
+                        className="fa-solid fa-pen-to-square"
+                        onClick={() => {
+                          setDisplayForm(true);
+                          setFname(contact[index].first_name);
+                          setLname(contact[index].last_name);
+                          setEmail(contact[index].email);
+                          setStatus(contact[index].relationship_status);
+                          setNumber(contact[index].phone_number);
+                          setLocationName(contact[index].location);
+                          setSelectedId(contact[index]._id);
+                        }}
+                      ></i>
+                    </td>
+                  </tr>
+                ))}
+              </table>
+            </div>
           </div>
           {/* Update Form */}
           {displayForm ? (
