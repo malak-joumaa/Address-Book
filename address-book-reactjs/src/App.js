@@ -27,7 +27,9 @@ function App() {
     const data = await res.json();
     console.log(data);
     var token = data.token;
+    // Saving token in local storage
     window.localStorage.setItem("token", token);
+    // Decode JWT
     var decoded = jwt_decode(token);
     console.log(decoded);
     window.localStorage.setItem("username", decoded.name);

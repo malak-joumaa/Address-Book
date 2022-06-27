@@ -7,43 +7,32 @@ import abook from "../assets/abook.png";
 
 const Contacts = () => {
   const navigate = useNavigate();
+  // Form inputs
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState();
   const [status, setStatus] = useState("single");
+  // Display Update form
   const [displayForm, setDisplayForm] = useState(false);
+  // User Contacts
   const [contact, setContacts] = useState([]);
+  // Id of contact to update
   const [selectedId, setSelectedId] = useState(1);
+  // Search
   const [filteredData, setFilteredData] = useState(contact);
+  // Maps
   const [locationName, setLocationName] = useState("");
   const [selectedPosition, setSelectedPosition] = useState([
     33.893791, 35.501778,
   ]);
-
-  //Get the name of the selected location
-  const getName = async (e) => {
-    try {
-      const res = await fetch(
-        "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" +
-          selectedPosition[0] +
-          "&longitude=" +
-          selectedPosition[1] +
-          "&localityLanguage=en"
-      );
-      const data = await res.json();
-      console.log(data);
-      setLocationName("" + data.locality + ", " + data.countryName);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
     fetchContacts();
     getName();
   }, []);
 
+  // Get Contacts
   const fetchContacts = async () => {
     try {
       const res = await fetch(
@@ -60,6 +49,7 @@ const Contacts = () => {
   };
   console.log(contact);
 
+  // Delete Contact
   const deleteContact = async (contact_id) => {
     console.log(contact_id);
     const res = await fetch(
@@ -74,6 +64,7 @@ const Contacts = () => {
     );
   };
 
+  // Update Contact
   const updateContact = async (contact_id) => {
     const res = await fetch(
       "http://localhost:5000/api/contact/?id=" + contact_id,
@@ -96,6 +87,25 @@ const Contacts = () => {
     );
   };
 
+  //Get the name of the selected location
+  const getName = async (e) => {
+    try {
+      const res = await fetch(
+        "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" +
+          selectedPosition[0] +
+          "&longitude=" +
+          selectedPosition[1] +
+          "&localityLanguage=en"
+      );
+      const data = await res.json();
+      console.log(data);
+      setLocationName("" + data.locality + ", " + data.countryName);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Search
   const handleSearch = (event) => {
     let value = event.target.value.toLowerCase();
     console.log(value);
@@ -126,6 +136,7 @@ const Contacts = () => {
         <span className="title contact-span">
           {localStorage.getItem("username")}'s Contacts
         </span>
+        {/* Logout */}
         <i
           className="fa-solid fa-arrow-right-from-bracket logout"
           onClick={() => {
@@ -166,6 +177,7 @@ const Contacts = () => {
                   <td>{contact[index].relationship_status}</td>
                   <td>{contact[index].location}</td>
                   <td>
+                    {/* Delete Contact */}
                     <i
                       className="fa-solid fa-trash"
                       onClick={() => {
@@ -174,6 +186,7 @@ const Contacts = () => {
                     ></i>
                   </td>
                   <td>
+                    {/* Update Contact */}
                     <i
                       className="fa-solid fa-pen-to-square"
                       onClick={() => {
@@ -192,6 +205,7 @@ const Contacts = () => {
               ))}
             </table>
           </div>
+          {/* Update Form */}
           {displayForm ? (
             <ContactFrom
               title="Update Contact"
@@ -213,6 +227,7 @@ const Contacts = () => {
           ) : (
             <></>
           )}
+          {/* Update button */}
           {displayForm ? (
             <button
               className="btn update-btn"
