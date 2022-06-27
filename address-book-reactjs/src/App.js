@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import SignUp from "./Pages/Signup";
 import Contacts from "./Pages/Contacts";
@@ -10,6 +10,7 @@ function App() {
   const [password, setPassword] = useState("");
   console.log(email);
   console.log(password);
+  const [displayError, setDisplayError] = useState(false);
 
   const signIn = async () => {
     console.log(email, password);
@@ -32,6 +33,7 @@ function App() {
     window.localStorage.setItem("username", decoded.name);
     window.localStorage.setItem("user_id", decoded._id);
   };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -44,6 +46,11 @@ function App() {
                   <form className="user-form">
                     <div className="box">
                       <h2 className="title">Sign In</h2>
+                      {displayError ? (
+                        <p className="red">Please fill all fields!</p>
+                      ) : (
+                        <></>
+                      )}
                       <label className="lbl">Email</label>
                       <br />
                       <input
@@ -66,16 +73,21 @@ function App() {
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <br />
-                      <Link to="/contacts">
-                        <button
-                          className="btn"
-                          onClick={() => {
+                      <button
+                        className="btn"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (email == "" || password == "") {
+                            setDisplayError(true);
+                          } else {
+                            setDisplayError(false);
                             signIn();
-                          }}
-                        >
-                          Sign in
-                        </button>
-                      </Link>
+                            window.open("http://localhost:3000/contacts");
+                          }
+                        }}
+                      >
+                        Sign in
+                      </button>
                       <br />
                       <span className="account">Don't have an account? </span>
                       <span className="sign-link">

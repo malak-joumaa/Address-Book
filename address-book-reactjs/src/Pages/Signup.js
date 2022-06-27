@@ -6,6 +6,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullname, setName] = useState("");
+  const [displayError, setDisplayError] = useState(false);
   console.log(email);
   console.log(password);
   console.log(fullname);
@@ -25,7 +26,6 @@ const SignUp = () => {
     });
     const data = await res.json();
     console.log(data);
-    navigate("/");
   };
 
   return (
@@ -34,6 +34,11 @@ const SignUp = () => {
         <form className="user-form">
           <div className="box">
             <h2 className="title">Sign Up</h2>
+            {displayError ? (
+              <p className="red">Please fill all fields!</p>
+            ) : (
+              <></>
+            )}
             <label className="lbl">Name</label>
             <br />
             <input
@@ -69,8 +74,14 @@ const SignUp = () => {
             <br />
             <button
               className="btn"
-              onClick={() => {
-                signUp();
+              onClick={(e) => {
+                e.preventDefault();
+                if (fullname == "" || password == "" || email == "") {
+                  setDisplayError(true);
+                } else {
+                  signUp();
+                  navigate("/");
+                }
               }}
             >
               Sign up
