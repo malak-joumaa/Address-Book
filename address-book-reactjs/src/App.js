@@ -32,6 +32,7 @@ function App() {
     console.log(decoded);
     window.localStorage.setItem("username", decoded.name);
     window.localStorage.setItem("user_id", decoded._id);
+    window.open("http://localhost:3000/contacts");
   };
 
   return (
@@ -82,7 +83,6 @@ function App() {
                           } else {
                             setDisplayError(false);
                             signIn();
-                            window.open("http://localhost:3000/contacts");
                           }
                         }}
                       >

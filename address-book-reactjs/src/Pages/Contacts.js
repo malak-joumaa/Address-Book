@@ -67,6 +67,7 @@ const Contacts = () => {
       {
         method: "DELETE",
         headers: {
+          "x-access-token": localStorage.getItem("token"),
           "Content-type": "application/json",
         },
       }
@@ -79,6 +80,7 @@ const Contacts = () => {
       {
         method: "PUT",
         headers: {
+          "x-access-token": localStorage.getItem("token"),
           "Content-type": "application/json",
         },
         body: JSON.stringify({
