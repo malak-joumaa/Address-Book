@@ -2,7 +2,7 @@ import React from "react";
 import PhoneInput from "react-phone-number-input";
 import Maps from "../Components/Maps";
 
-const ContactFrom = ({
+const ContactForm = ({
   title = "",
   fname,
   setFname,
@@ -95,4 +95,4 @@ const ContactFrom = ({
   );
 };
 
-export default ContactFrom;
+export default ContactForm;

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "react-phone-number-input/style.css";
 import { useNavigate } from "react-router-dom";
-import ContactFrom from "../Components/ContactForm";
+import ContactForm from "../Components/ContactForm";
 
 const AddContact = () => {
+  const navigate = useNavigate();
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
@@ -15,7 +16,6 @@ const AddContact = () => {
   const [locationName, setLocationName] = useState("");
   const [success, setSuccess] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     getName();
@@ -78,7 +78,7 @@ const AddContact = () => {
       ></i>
       <h1>Add Contact</h1>
       <form>
-        <ContactFrom
+        <ContactForm
           fname={fname}
           setFname={setFname}
           lname={lname}
@@ -108,10 +108,10 @@ const AddContact = () => {
           onClick={(e) => {
             e.preventDefault();
             addContact();
-            setTimeout(
-              () => window.open("http://localhost:3000/contacts"),
-              2000
-            );
+            setTimeout(() => {
+              console.log("Navigate");
+              navigate("/contacts");
+            }, 2000);
           }}
         >
           AddContact

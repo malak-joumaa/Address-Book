@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../Components/Button";
-import ContactFrom from "../Components/ContactForm";
+import ContactForm from "../Components/ContactForm";
 import SearchBox from "../Components/SearchBox";
 import abook from "../assets/abook.png";
 
@@ -209,7 +209,7 @@ const Contacts = () => {
           </div>
           {/* Update Form */}
           {displayForm ? (
-            <ContactFrom
+            <ContactForm
               title="Update Contact"
               fname={fname}
               setFname={setFname}
